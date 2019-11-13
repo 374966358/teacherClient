@@ -97,24 +97,132 @@ export const constantRoutes = [
         meta: { title: 'profile', icon: 'user', noCache: true }
       }
     ]
-  }
-]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-export const asyncRoutes = [
-  // 404 page must be placed at the end !!!
+  },
+  // 上课
   {
-    path: '*',
-    redirect: '/404',
+    path: '/school',
+    component: () => import('@/views/school.vue'),
     hidden: true
   }
 ]
 
+export const asyncRoutes = [
+  // 我的班级
+  {
+    path: '/grading',
+    component: Layout,
+    redirect: '/grading',
+    alwaysShow: true, // will always show the root menu
+    name: 'myGrading',
+    meta: {
+      title: 'myGrading',
+      icon: 'lock'
+    },
+    children: [
+      // 我的老师
+      {
+        path: 'teacher',
+        component: () => import('@/views/grading/teacher'),
+        name: 'myTeacher',
+        meta: { title: 'myTeacher' }
+      },
+      // 我的同学
+      {
+        path: 'classmate',
+        component: () => import('@/views/grading/classmate'),
+        name: 'myClassmate',
+        meta: { title: 'myClassmate' }
+      },
+      // 上课资料
+      {
+        path: 'info',
+        component: () => import('@/views/grading/info'),
+        name: 'classInfo',
+        meta: { title: 'classInfo' }
+      }
+    ]
+  },
+  // 课程表
+  {
+    path: '/course',
+    component: Layout,
+    redirect: '/course',
+    alwaysShow: true, // will always show the root menu
+    name: 'classSchedule',
+    meta: {
+      title: 'classSchedule',
+      icon: 'lock'
+    },
+    children: [
+      // 课程安排
+      {
+        path: 'arrange',
+        component: () => import('@/views/course/arrange'),
+        name: 'courseArrange',
+        meta: { title: 'courseArrange' }
+      },
+      // 课程表
+      {
+        path: 'table',
+        component: () => import('@/views/course/table'),
+        name: 'classTable',
+        meta: { title: 'classTable' }
+      },
+      // 回放课程
+      {
+        path: 'playback',
+        component: () => import('@/views/course/playback'),
+        name: 'playbackCourse',
+        meta: { title: 'playbackCourse' }
+      },
+      // 出勤情况
+      {
+        path: 'attendance',
+        component: () => import('@/views/course/attendance'),
+        name: 'Attendance',
+        meta: { title: 'Attendance' }
+      }
+    ]
+  },
+  // 问题
+  {
+    path: '/problem',
+    component: Layout,
+    redirect: '/problem',
+    alwaysShow: true, // will always show the root menu
+    name: 'problem',
+    meta: {
+      title: 'problem',
+      icon: 'lock'
+    },
+    children: [
+      // 问答大厅
+      {
+        path: 'hall',
+        component: () => import('@/views/problem/hall'),
+        name: 'problemHall',
+        meta: { title: 'problemHall' }
+      },
+      // 我的提问
+      {
+        path: 'question',
+        component: () => import('@/views/problem/question'),
+        name: 'myQuestion',
+        meta: { title: 'myQuestion' }
+      },
+      // 我的回答
+      {
+        path: 'reply',
+        component: () => import('@/views/problem/reply'),
+        name: 'myReply',
+        meta: { title: 'myReply' }
+      }
+    ]
+  }
+]
+
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
